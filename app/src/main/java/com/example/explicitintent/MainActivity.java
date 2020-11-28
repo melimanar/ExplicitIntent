@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.TextValueSanitizer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-TextView txtShow;
+    private static final String TAG ="meli" ;
+    TextView txtShow;
 Button btnCall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ Button btnCall;
         if(requestCode==1 && resultCode==1)
         {
             User user= (User) data.getSerializableExtra("obj");
-            String name=user.getUsern   ame();
+            String name=user.getUsername();
             String email=user.getEmail();
             String phone=user.getPhone();
             int age=user.getAge();
@@ -39,5 +41,14 @@ Button btnCall;
             txtShow.setText("Name : "+name+"\n Email : "+email+"\n Phone : "+phone+"\n Age : "+age+"\n Gender : "+gender);
 
         }
+
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: "+"event");
     }
 }
